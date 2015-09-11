@@ -1,0 +1,17 @@
+.htaccess
+/vendor
+.idea
+composer.lock
+_ide_helper.php
+/app/config/database.php
+/app/storage/cache/*
+/app/storage/logs/*
+/app/storage/meta/*
+/app/storage/sessions/*
+/app/storage/views/*
+/app/storage/*.dat
+
+#/public/uploads/files/*
+#/public/uploads/galleries/*
+#/public/uploads/galleries/thumbs/*
+#/public/uploads/thumbnail/*
