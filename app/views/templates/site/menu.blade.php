@@ -8,6 +8,7 @@
 $categories = Dic::valuesBySlug('product_category', function ($query) {
     $query->orderBy("dictionary_values.lft");
 }, 'all', TRUE);
+$current_category = array();
 if ($page->sysname == 'menu'):
     echo json_encode(['responseType' => 'redirect',
             'redirectUrl' => URL::route('page.category_menu', array('category' => $categories->first()->slug)),
@@ -15,7 +16,6 @@ if ($page->sysname == 'menu'):
     return;
 elseif($page->sysname == 'category_menu'):
     $current_category_slug = Request::segment(2);
-    $current_category = array();
     foreach($categories as $category):
         if($category->slug == $current_category_slug):
             $current_category = $category;
@@ -23,8 +23,11 @@ elseif($page->sysname == 'category_menu'):
         endif;
     endforeach;
 endif;
-if(!isset($current_category)):
-    App::abort(404);
+if(!is_object($current_category)):
+    echo json_encode(['responseType' => 'redirect',
+            'redirectUrl' => URL::route('page.category_menu', array('category' => $categories->first()->slug)),
+            'redirectCode' => 301]);
+    return;
 endif;
 ?>
 @section('title'){{{ $current_category->seo->title }}}@stop
