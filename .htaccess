@@ -1,0 +1,22 @@
+AddDefaultCharset utf-8
+Options +FollowSymLinks
+Options -Indexes
+
+php_flag short_open_tag on
+<IfModule php5_module>
+    php_flag session.cookie_secure on
+    php_flag session.cookie_httponly on
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+	RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+	RewriteRule .* http://%1/$0 [L,R=301]
+
+	RewriteCond %{REQUEST_URI} !public/
+    RewriteRule (.*) /public/$1 [L]
+</IfModule>
+php_value upload_max_filesize 10M
+Satisfy Any
+Allow from all
