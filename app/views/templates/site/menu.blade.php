@@ -23,6 +23,9 @@ elseif($page->sysname == 'category_menu'):
         endif;
     endforeach;
 endif;
+if(!isset($current_category)):
+    App::abort(404);
+endif;
 ?>
 @section('title'){{{ $current_category->seo->title }}}@stop
 @section('description'){{{ $current_category->seo->description }}}@stop
